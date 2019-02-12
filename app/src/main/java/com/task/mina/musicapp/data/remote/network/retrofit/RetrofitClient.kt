@@ -7,36 +7,35 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Inject
 
 /**
  * Created by Mina Alfy on 2/11/2019.
  */
-class RetrofitClient {
+class RetrofitClient @Inject constructor(private val baseURL: String
+                                         , private val httpClient: OkHttpClient.Builder
+                                         , private val httpLoggingInterceptor: HttpLoggingInterceptor
+                                         , private val builder: Retrofit.Builder) {
 
-
-    companion object {
-        fun getInstance(baseURL: String): Retrofit {
-            val httpClient = OkHttpClient.Builder()
-            val builder = Retrofit.Builder()
-            if (BuildConfig.DEBUG) {
-                val logging = HttpLoggingInterceptor()
-                logging.level = HttpLoggingInterceptor.Level.BODY
-                httpClient.addInterceptor(logging)
-            }
-
-            val gson = GsonBuilder()
-                    .setLenient()
-                    .create()
-
-            builder.baseUrl(baseURL)
-                    .addConverterFactory(GsonConverterFactory.create(gson))
-                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-
-            builder.client(httpClient.build())
-            return builder.build()
+    fun getInstance(): Retrofit {
+        if (BuildConfig.DEBUG) {
+            httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+            httpClient.addInterceptor(httpLoggingInterceptor)
         }
 
+        val gson = GsonBuilder()
+                .setLenient()
+                .create()
+
+        builder.baseUrl(baseURL)
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .addCallAdapterFactory(RxErrorHandlingCallAdapterFactory.create())
+
+        builder.client(httpClient.build())
+        return builder.build()
     }
+
+
 }
 
 

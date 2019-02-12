@@ -5,6 +5,8 @@ import com.task.mina.musicapp.data.remote.network.retrofit.MusicServiceAPI
 import com.task.mina.musicapp.data.remote.network.retrofit.RetrofitClient
 import dagger.Module
 import dagger.Provides
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 
 import javax.inject.Named
@@ -15,16 +17,30 @@ import javax.inject.Singleton
 class NetworkModule {
 
     @Provides
+    @Singleton
     @Named("BASE_URL")
-    fun provideBaseURL(): String {
-        return BuildConfig.BASE_URL
-    }
+    fun provideBaseURL() = BuildConfig.BASE_URL
 
 
     @Provides
     @Singleton
-    fun provideRetrofitClient(@Named("BASE_URL") baseURL: String)
-            : Retrofit = RetrofitClient.getInstance(baseURL = baseURL)
+    fun provideHttpClient() = OkHttpClient()
+
+
+    @Provides
+    @Singleton
+    fun provideHttpLoggingInterceptor() = HttpLoggingInterceptor()
+
+
+    @Provides
+    @Singleton
+    fun provideRetrofit() = Retrofit.Builder()
+
+
+    @Provides
+    @Singleton
+    fun provideRetrofitClient(@Named("BASE_URL") baseURL: String, httpClient: OkHttpClient, httpLoggingInterceptor: HttpLoggingInterceptor, builder: Retrofit.Builder)
+            : Retrofit = RetrofitClient(baseURL = baseURL, httpClient = httpClient.newBuilder(), httpLoggingInterceptor = httpLoggingInterceptor, builder = builder).getInstance()
 
     @Provides
     @Singleton
