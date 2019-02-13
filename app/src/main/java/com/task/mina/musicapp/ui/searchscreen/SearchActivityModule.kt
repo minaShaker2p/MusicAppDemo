@@ -1,5 +1,7 @@
 package com.task.mina.musicapp.ui.searchscreen
 
+import android.content.Context
+import android.support.v7.widget.LinearLayoutManager
 import com.task.mina.musicapp.data.remote.network.retrofit.MusicServiceAPI
 import dagger.Module
 import dagger.Provides
@@ -21,5 +23,13 @@ class SearchActivityModule {
     @Provides
     fun provideSearchArtistViewmodel(userCase: SearchArtistUseCase): SearchArtistViewmodel =
             SearchArtistViewmodel(userCase)
+
+    @Provides
+    fun providelinearLayoutManager(context: Context) =
+            LinearLayoutManager(context)
+
+    @Provides
+    fun provideArtistListAdapter() =
+            ArtistListAdapter()
 
 }

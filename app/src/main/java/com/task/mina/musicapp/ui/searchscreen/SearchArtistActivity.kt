@@ -4,6 +4,8 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.widget.Toast
 import com.task.mina.musicapp.R
 import com.task.mina.musicapp.base.presentation.viewmodel.ViewModelFactory
@@ -19,6 +21,10 @@ class SearchArtistActivity : AppCompatActivity() {
     private val mViewModel by lazy {
         ViewModelProviders.of(this, viewModelFactory).get(SearchArtistViewmodel::class.java)
     }
+    @Inject
+    lateinit var manager: LinearLayoutManager
+    @Inject
+    lateinit var adapter: ArtistListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,13 +32,21 @@ class SearchArtistActivity : AppCompatActivity() {
         setContentView(R.layout.activity_search_artist)
         intiSearchButton()
         initSearchResultObservable()
+        initArtistRecylerView()
+    }
+
+    private fun initArtistRecylerView() {
+        manager.orientation = LinearLayoutManager.VERTICAL
+        rclArtist.layoutManager = manager
+        rclArtist.adapter = adapter
+
     }
 
     private fun initSearchResultObservable() {
         mViewModel.mSearchObservable.observe(this, successObserver = Observer {
             it?.let {
-                if (it.size > 0)
-                    Toast.makeText(this, "Success", Toast.LENGTH_LONG).show()
+                adapter.addMoreItems(it.toMutableList())
+
             }
         },
                 loadingObserver = Observer { },
