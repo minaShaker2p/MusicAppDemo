@@ -1,6 +1,5 @@
 package com.task.mina.musicapp.ui.searchscreen
 
-import android.util.Log
 import com.task.mina.musicapp.base.domain.exception.MusicAppException
 import com.task.mina.musicapp.base.presentation.model.ObservableResource
 import com.task.mina.musicapp.base.presentation.viewmodel.BaseViewModel
