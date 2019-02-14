@@ -44,6 +44,7 @@ class ArtistListAdapter : BaseRecyclerAdapter<Artist>() {
                 if (it.size == "large")
                     imgArtist.loadFromUrl(it.text)
             }
+            tvListenersNumber.text = item.listeners
 
 
         }

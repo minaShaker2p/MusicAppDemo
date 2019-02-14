@@ -15,16 +15,24 @@ class SearchArtistViewmodel @Inject constructor(private val searchArtistUseCase:
     val mSearchObservable by lazy { ObservableResource<List<Artist>>() }
     fun search(artistName: String) {
         if (artistName.isNotEmpty()) {
-            addDisposable(searchArtistUseCase.build(params = artistName).subscribeOn(Schedulers.io())
+            addDisposable(searchArtistUseCase.build(params = artistName)
+                    .subscribeOn(Schedulers.io())
+                    .doOnSubscribe {
+                        mSearchObservable.loading.postValue(true)
+                    }
                     .observeOn(AndroidSchedulers.mainThread()).subscribe(
                             {
+                                mSearchObservable.loading.value = false
+
                                 it?.let {
                                     mSearchObservable.postValue(it)
                                 }
 
                             }, { error ->
-                        (error is MusicAppException).let {
-                            mSearchObservable.error.postValue(error as MusicAppException)
+                        mSearchObservable.loading.value = false
+                        // as? it safe cast operator
+                        (error as? MusicAppException).let {
+                            mSearchObservable.error.postValue(it)
                         }
                     }
                     ))

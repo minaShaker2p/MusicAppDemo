@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.view.View
 import android.widget.Toast
 
 import com.task.mina.musicapp.R
@@ -45,11 +46,18 @@ class SearchArtistActivity : AppCompatActivity() {
     private fun initSearchResultObservable() {
         mViewModel.mSearchObservable.observe(this, successObserver = Observer {
             it?.let {
-                adapter.addMoreItems(it.toMutableList())
+                adapter.addMoreItemsFirst(it.toMutableList())
 
             }
         },
-                loadingObserver = Observer { },
+                loadingObserver = Observer {
+                    it?.let {
+                        if (it)
+                            progress.visibility = View.VISIBLE
+                        else
+                            progress.visibility = View.GONE
+                    }
+                },
                 commonErrorObserver = Observer { }
                 , networkErrorConsumer = Observer { })
     }
