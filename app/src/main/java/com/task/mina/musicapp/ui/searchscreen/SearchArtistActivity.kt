@@ -5,8 +5,8 @@ import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.widget.Toast
+
 import com.task.mina.musicapp.R
 import com.task.mina.musicapp.base.presentation.viewmodel.ViewModelFactory
 import dagger.android.AndroidInjection
@@ -46,7 +46,6 @@ class SearchArtistActivity : AppCompatActivity() {
         mViewModel.mSearchObservable.observe(this, successObserver = Observer {
             it?.let {
                 adapter.addMoreItems(it.toMutableList())
-
             }
         },
                 loadingObserver = Observer { },
@@ -56,6 +55,7 @@ class SearchArtistActivity : AppCompatActivity() {
 
     private fun intiSearchButton() {
         btnSearch.setOnClickListener {
+            Toast.makeText(this,"click",Toast.LENGTH_LONG).show()
             mViewModel.search(artistName = edtArtistName.text.toString())
         }
     }
