@@ -8,10 +8,19 @@ import com.task.mina.musicapp.base.presentation.view.adapter.BaseRecyclerAdapter
 import com.task.mina.musicapp.base.presentation.view.extension.getInflatedView
 import com.task.mina.musicapp.base.presentation.view.extension.loadFromUrl
 import com.task.mina.musicapp.data.remote.network.response.Artist
+import io.reactivex.Observable
 import kotlinx.android.synthetic.main.item_artist_list.view.*
+import io.reactivex.subjects.PublishSubject
 
 
 class ArtistListAdapter : BaseRecyclerAdapter<Artist>() {
+
+    private val mViewClickSubject = PublishSubject.create<String>()
+
+    fun getViewClickedObservable(): Observable<String> {
+        return mViewClickSubject
+    }
+
     override fun getAdapterPageSize(): Int {
         return PAGE_SIZE
     }
@@ -27,8 +36,10 @@ class ArtistListAdapter : BaseRecyclerAdapter<Artist>() {
 
     override fun onBindMainViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is ArtistViewHolder) {
-            holder.bind(getItems().get(position))
-
+            holder.bind(getItems()[position])
+            holder.itemView.setOnClickListener {
+                mViewClickSubject.onNext(getItems()[position].name)
+            }
         }
     }
 
@@ -45,6 +56,9 @@ class ArtistListAdapter : BaseRecyclerAdapter<Artist>() {
                     imgArtist.loadFromUrl(it.text)
             }
             tvListenersNumber.text = item.listeners
+            itemView.setOnClickListener {
+
+            }
 
 
         }

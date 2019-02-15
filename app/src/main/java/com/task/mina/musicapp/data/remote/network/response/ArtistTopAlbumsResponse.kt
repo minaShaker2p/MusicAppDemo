@@ -1,5 +1,7 @@
 package com.task.mina.musicapp.data.remote.network.response
 
+import com.google.gson.annotations.SerializedName
+
 data class ArtistTopAlbumsResponse(
         val topalbums: Topalbums
 )
@@ -36,6 +38,7 @@ data class ArtistAlbum(
 )
 
 data class AlbumImage(
+        @SerializedName("#text")
         val text: String,
         val size: String
 )

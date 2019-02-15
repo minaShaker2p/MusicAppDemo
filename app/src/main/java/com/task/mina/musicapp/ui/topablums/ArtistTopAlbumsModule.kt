@@ -1,6 +1,10 @@
 package com.task.mina.musicapp.ui.topablums
 
+import android.content.Context
+import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.LinearLayoutManager
 import com.task.mina.musicapp.data.remote.network.retrofit.MusicServiceAPI
+import com.task.mina.musicapp.ui.searchscreen.ArtistListAdapter
 import dagger.Module
 import dagger.Provides
 
@@ -25,4 +29,13 @@ class ArtistTopAlbumsModule {
     @Provides
     fun provideArtistTopAlbumsViewModel(getArtistTopAlbumsUsecase: GetArtistTopAlbumsUsecase) =
             ArtistTopAlbumsViewModel(getArtistTopAlbumsUsecase)
+
+    @Provides
+    fun provideGridLayoutManager(context: Context) =
+            GridLayoutManager(context, 2)
+
+    @Provides
+    fun provideArtistTopAlbumAdapter() =
+            ArtistTopAlbumAdapter()
+
 }

@@ -16,7 +16,7 @@ class MusicApplication : Application(), HasActivityInjector {
     lateinit var activityDispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
 
     override fun activityInjector(): AndroidInjector<Activity> {
-        return activityDispatchingAndroidInjector!!
+        return activityDispatchingAndroidInjector
     }
 
     override fun onCreate() {

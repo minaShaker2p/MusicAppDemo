@@ -2,6 +2,7 @@ package com.task.mina.musicapp.ui.searchscreen
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
@@ -10,6 +11,7 @@ import android.widget.Toast
 
 import com.task.mina.musicapp.R
 import com.task.mina.musicapp.base.presentation.viewmodel.ViewModelFactory
+import com.task.mina.musicapp.ui.topablums.TopArtistAlbumsActivity
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_search_artist.*
 import javax.inject.Inject
@@ -34,7 +36,9 @@ class SearchArtistActivity : AppCompatActivity() {
         intiSearchButton()
         initSearchResultObservable()
         initArtistRecylerView()
+        subscribleOnArtistRecylerClickEvent()
     }
+
 
     private fun initArtistRecylerView() {
         manager.orientation = LinearLayoutManager.VERTICAL
@@ -67,4 +71,17 @@ class SearchArtistActivity : AppCompatActivity() {
             mViewModel.search(artistName = edtArtistName.text.toString())
         }
     }
+
+    private fun subscribleOnArtistRecylerClickEvent() {
+        adapter.getViewClickedObservable().subscribe {
+            navigateToArtistTopAlbumsActivity(it)
+        }
+    }
+
+    private fun navigateToArtistTopAlbumsActivity(artistName: String) {
+        val intent = Intent(this, TopArtistAlbumsActivity::class.java)
+        intent.putExtra(TopArtistAlbumsActivity.EXTRA_ARTIST_NAME, artistName)
+        startActivity(intent)
+    }
+
 }

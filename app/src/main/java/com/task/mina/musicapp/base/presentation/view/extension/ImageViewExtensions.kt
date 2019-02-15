@@ -6,6 +6,7 @@ import com.bumptech.glide.request.RequestOptions
 
 
 fun ImageView.loadFromUrl(url: String, placeholder: Int? = null) {
+
     val glideApp = Glide.with(context)
             .load(url)
 
