@@ -5,7 +5,7 @@ import com.task.mina.musicapp.data.remote.network.response.ArtistTopAlbumsRespon
 import io.reactivex.Single
 import javax.inject.Inject
 
-class SearchArtistUseCase @Inject constructor(private val repository: ArtistTopAlbumsRepository) :
+class GetArtistTopAlbumsUsecase @Inject constructor(private val repository: ArtistTopAlbumsRepository) :
         SingleUseCase<String, ArtistTopAlbumsResponse>() {
     override fun build(params: String): Single<ArtistTopAlbumsResponse> =
             repository.getArtistTopAlbums(artistName = params)

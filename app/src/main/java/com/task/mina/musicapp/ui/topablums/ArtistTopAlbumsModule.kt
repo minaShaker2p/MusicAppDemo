@@ -13,4 +13,16 @@ class ArtistTopAlbumsModule {
     @Provides
     fun provideArtistTopAlbumsRemoteDataSource(musicServiceAPI: MusicServiceAPI) =
             ArtistTopAlbumsRemoteDataSource(musicServiceAPI = musicServiceAPI)
+
+    @Provides
+    fun provideArtistTopAlbumRepository(remoteDataSource: ArtistTopAlbumsRemoteDataSource): ArtistTopAlbumsRepository =
+            ArtistTopAlbumsRepositoryImp(remoteDataSource)
+
+    @Provides
+    fun provideGetArtistTopAlbumsUseCase(repository: ArtistTopAlbumsRepository) =
+            GetArtistTopAlbumsUsecase(repository)
+
+    @Provides
+    fun provideArtistTopAlbumsViewModel(getArtistTopAlbumsUsecase: GetArtistTopAlbumsUsecase) =
+            ArtistTopAlbumsViewModel(getArtistTopAlbumsUsecase)
 }
