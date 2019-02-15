@@ -1,8 +1,10 @@
-package com.task.mina.musicapp.ui.topablums.di
+package com.task.mina.musicapp.ui.topablums.injection
 
 import android.content.Context
 import android.support.v7.widget.GridLayoutManager
+import com.task.mina.musicapp.data.local.dao.AlbumDao
 import com.task.mina.musicapp.data.remote.network.retrofit.MusicServiceAPI
+import com.task.mina.musicapp.ui.topablums.data.local.ArtistTopAlbumsLocalDataSource
 import com.task.mina.musicapp.ui.topablums.data.remote.ArtistTopAlbumsRemoteDataSource
 import com.task.mina.musicapp.ui.topablums.domain.ArtistTopAlbumsRepository
 import com.task.mina.musicapp.ui.topablums.domain.ArtistTopAlbumsRepositoryImp
@@ -19,12 +21,17 @@ import dagger.Provides
 class ArtistTopAlbumsModule {
 
     @Provides
+    fun provideArtistTopAlbumsLocalDataSource(albumDao: AlbumDao) =
+            ArtistTopAlbumsLocalDataSource(albumDao = albumDao)
+
+
+    @Provides
     fun provideArtistTopAlbumsRemoteDataSource(musicServiceAPI: MusicServiceAPI) =
             ArtistTopAlbumsRemoteDataSource(musicServiceAPI = musicServiceAPI)
 
     @Provides
-    fun provideArtistTopAlbumRepository(remoteDataSource: ArtistTopAlbumsRemoteDataSource): ArtistTopAlbumsRepository =
-            ArtistTopAlbumsRepositoryImp(remoteDataSource)
+    fun provideArtistTopAlbumRepository(remoteDataSource: ArtistTopAlbumsRemoteDataSource, localDataSource: ArtistTopAlbumsLocalDataSource): ArtistTopAlbumsRepository =
+            ArtistTopAlbumsRepositoryImp(remoteDataSource, localDataSource)
 
     @Provides
     fun provideGetArtistTopAlbumsUseCase(repository: ArtistTopAlbumsRepository) =
