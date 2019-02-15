@@ -4,7 +4,7 @@ import com.task.mina.musicapp.base.domain.exception.MusicAppException
 import com.task.mina.musicapp.base.presentation.model.ObservableResource
 import com.task.mina.musicapp.base.presentation.viewmodel.BaseViewModel
 import com.task.mina.musicapp.data.remote.network.response.Album
-import com.task.mina.musicapp.ui.topablums.domain.GetArtistTopAlbumsUsecase
+import com.task.mina.musicapp.ui.topablums.domain.interactor.GetArtistTopAlbumsUsecase
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject

@@ -1,7 +1,8 @@
-package com.task.mina.musicapp.ui.topablums.domain
+package com.task.mina.musicapp.ui.topablums.domain.interactor
 
 import com.task.mina.musicapp.base.domain.interactor.SingleUseCase
 import com.task.mina.musicapp.data.remote.network.response.ArtistTopAlbumsResponse
+import com.task.mina.musicapp.ui.topablums.domain.repository.ArtistTopAlbumsRepository
 import io.reactivex.Single
 import javax.inject.Inject
 
