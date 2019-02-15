@@ -1,4 +1,4 @@
-package com.task.mina.musicapp.ui.searchscreen.di
+package com.task.mina.musicapp.ui.searchscreen.injection
 
 import android.content.Context
 import android.support.v7.widget.LinearLayoutManager

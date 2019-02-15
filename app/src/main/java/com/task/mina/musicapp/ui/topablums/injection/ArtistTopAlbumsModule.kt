@@ -6,6 +6,8 @@ import com.task.mina.musicapp.data.local.dao.AlbumDao
 import com.task.mina.musicapp.data.remote.network.retrofit.MusicServiceAPI
 import com.task.mina.musicapp.ui.topablums.data.local.ArtistTopAlbumsLocalDataSource
 import com.task.mina.musicapp.ui.topablums.data.remote.ArtistTopAlbumsRemoteDataSource
+import com.task.mina.musicapp.ui.topablums.domain.interactor.AddAlbumsLocalUsecase
+import com.task.mina.musicapp.ui.topablums.domain.interactor.DeleteAlbumsLocalUsecase
 import com.task.mina.musicapp.ui.topablums.domain.repository.ArtistTopAlbumsRepository
 import com.task.mina.musicapp.ui.topablums.domain.repository.ArtistTopAlbumsRepositoryImp
 import com.task.mina.musicapp.ui.topablums.domain.interactor.GetArtistTopAlbumsUsecase
@@ -36,6 +38,15 @@ class ArtistTopAlbumsModule {
     @Provides
     fun provideGetArtistTopAlbumsUseCase(repository: ArtistTopAlbumsRepository) =
             GetArtistTopAlbumsUsecase(repository)
+
+    @Provides
+    fun provideAddAlbumsLocalUseCase(repository: ArtistTopAlbumsRepository) =
+            AddAlbumsLocalUsecase(repository)
+
+    @Provides
+    fun provideDeleteAlbumsLocalUseCase(repository: ArtistTopAlbumsRepository) =
+            DeleteAlbumsLocalUsecase(repository)
+
 
     @Provides
     fun provideArtistTopAlbumsViewModel(getArtistTopAlbumsUsecase: GetArtistTopAlbumsUsecase) =
