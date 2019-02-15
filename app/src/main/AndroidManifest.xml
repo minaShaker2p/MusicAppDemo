@@ -21,7 +21,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.searchscreen.SearchArtistActivity" />
-        <activity android:name=".ui.topablums.TopArtistAlbumsActivity"></activity>
+        <activity android:name=".ui.topablums.TopArtistAlbumsActivity" />
+        <activity android:name=".ui.albumdetails.AlbumDetailsActivity"></activity>
     </application>
 
 </manifest>

@@ -1,6 +1,9 @@
 package com.task.mina.musicapp.data.remote.network.response
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
+
 
 data class ArtistTopAlbumsResponse(
         val topalbums: Topalbums
@@ -22,6 +25,7 @@ data class Attr(
 )
 
 //-----------------------------------------------
+@Parcelize
 data class Album(
         val artist: ArtistAlbum,
         val image: List<AlbumImage>,
@@ -29,16 +33,18 @@ data class Album(
         val name: String,
         val playcount: Int,
         val url: String
-)
+) : Parcelable
 
+@Parcelize
 data class ArtistAlbum(
         val mbid: String,
         val name: String,
         val url: String
-)
+) : Parcelable
 
+@Parcelize
 data class AlbumImage(
         @SerializedName("#text")
         val text: String,
         val size: String
-)
+) : Parcelable

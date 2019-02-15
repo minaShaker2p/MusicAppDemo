@@ -8,11 +8,21 @@ import com.task.mina.musicapp.base.presentation.view.adapter.BaseRecyclerAdapter
 import com.task.mina.musicapp.base.presentation.view.extension.getInflatedView
 import com.task.mina.musicapp.base.presentation.view.extension.loadFromUrl
 import com.task.mina.musicapp.data.remote.network.response.Album
+import io.reactivex.Observable
+import io.reactivex.subjects.PublishSubject
 
 import kotlinx.android.synthetic.main.item_artist_album.view.*
 
 
 class ArtistTopAlbumAdapter : BaseRecyclerAdapter<Album>() {
+
+
+    private val mViewClickSubject = PublishSubject.create<Album>()
+
+    fun getViewClickedObservable(): Observable<Album> {
+        return mViewClickSubject
+    }
+
     override fun getAdapterPageSize(): Int {
         return PAGE_SIZE
     }
@@ -29,7 +39,9 @@ class ArtistTopAlbumAdapter : BaseRecyclerAdapter<Album>() {
     override fun onBindMainViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is ArtistAlbumViewHolder) {
             holder.bind(getItems()[position])
-
+            holder.itemView.setOnClickListener {
+                mViewClickSubject.onNext(getItems()[position])
+            }
         }
     }
 
@@ -50,7 +62,6 @@ class ArtistTopAlbumAdapter : BaseRecyclerAdapter<Album>() {
             image?.let {
                 imageArtistAlbum.loadFromUrl(it)
             }
-
 
         }
     }

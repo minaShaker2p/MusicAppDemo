@@ -2,11 +2,15 @@ package com.task.mina.musicapp.ui.topablums
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import com.task.mina.musicapp.R
 import com.task.mina.musicapp.base.presentation.viewmodel.ViewModelFactory
+import com.task.mina.musicapp.data.remote.network.response.Album
+import com.task.mina.musicapp.ui.albumdetails.AlbumDetailsActivity
+import com.task.mina.musicapp.ui.albumdetails.AlbumDetailsActivity.Companion.EXTRA_ALBUM_OBJECT
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_top_artist_albums.*
 import javax.inject.Inject
@@ -36,6 +40,7 @@ class TopArtistAlbumsActivity : AppCompatActivity() {
         getActivityBundle()
         initArtistAlbumsRecyclerView()
         subscribeOnArtistAlbumsObservable()
+        subscribleOnArtistAlbumItemClickEvent()
 
     }
 
@@ -87,4 +92,20 @@ class TopArtistAlbumsActivity : AppCompatActivity() {
                 })
 
     }
+
+    private fun subscribleOnArtistAlbumItemClickEvent() {
+        adapter.getViewClickedObservable().subscribe {
+            it?.let {
+                navigatetoAlbumDetailsActivity(it)
+
+            }
+        }
+    }
+
+    private fun navigatetoAlbumDetailsActivity(artistAlbum: Album) {
+        val intent = Intent(this, AlbumDetailsActivity::class.java)
+        intent.putExtra(EXTRA_ALBUM_OBJECT, artistAlbum)
+        startActivity(intent)
+    }
+
 }
