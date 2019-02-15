@@ -1,11 +1,9 @@
 package com.task.mina.musicapp.data.local.dao
 
 import android.arch.lifecycle.LiveData
-import android.arch.persistence.room.Dao
-import android.arch.persistence.room.Insert
-import android.arch.persistence.room.OnConflictStrategy
-import android.arch.persistence.room.Query
+import android.arch.persistence.room.*
 import com.task.mina.musicapp.data.local.entity.ArtistAlbumEntity
+import io.reactivex.Single
 
 /**
  * Created by Mina Alfy on 2/15/2019.
@@ -17,5 +15,8 @@ interface AlbumDao {
     fun getAllAlbums(): LiveData<List<ArtistAlbumEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(album: ArtistAlbumEntity)
+    fun insertAlbums(album: List<ArtistAlbumEntity>): Single<Boolean>
+
+    @Delete
+    fun deleteAlbums(album: List<ArtistAlbumEntity>): Single<Boolean>
 }
