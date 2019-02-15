@@ -1,4 +1,4 @@
-package com.task.mina.musicapp.dagger
+package com.task.mina.musicapp.injection
 
 import android.arch.persistence.room.Room
 import android.content.Context

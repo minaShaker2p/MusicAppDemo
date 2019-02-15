@@ -2,7 +2,7 @@ package com.task.mina.musicapp
 
 import android.app.Activity
 import android.app.Application
-import com.task.mina.musicapp.dagger.DaggerAppComponent
+import com.task.mina.musicapp.injection.DaggerAppComponent
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector

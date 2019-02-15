@@ -1,4 +1,4 @@
-package com.task.mina.musicapp.dagger
+package com.task.mina.musicapp.injection
 
 import com.task.mina.musicapp.BuildConfig
 import com.task.mina.musicapp.data.remote.network.retrofit.MusicServiceAPI

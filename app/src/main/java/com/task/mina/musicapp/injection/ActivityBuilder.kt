@@ -1,5 +1,7 @@
-package com.task.mina.musicapp.dagger
+package com.task.mina.musicapp.injection
 
+import com.task.mina.musicapp.ui.mainscreen.MainActivity
+import com.task.mina.musicapp.ui.mainscreen.injection.MainScreenModule
 import com.task.mina.musicapp.ui.searchscreen.injection.SearchActivityModule
 import com.task.mina.musicapp.ui.searchscreen.presentation.view.SearchArtistActivity
 import com.task.mina.musicapp.ui.topablums.injection.ArtistTopAlbumsModule
@@ -15,6 +17,9 @@ abstract class ActivityBuilder {
 
     @ContributesAndroidInjector(modules = [(ArtistTopAlbumsModule::class)])
     abstract fun bindArtistTopAlbumsActivity(): TopArtistAlbumsActivity
+
+    @ContributesAndroidInjector(modules = [(MainScreenModule::class)])
+    abstract fun bindMainScreenActivity(): MainActivity
 
 }
 

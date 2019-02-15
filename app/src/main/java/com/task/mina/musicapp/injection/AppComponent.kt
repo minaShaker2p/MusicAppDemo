@@ -1,4 +1,4 @@
-package com.task.mina.musicapp.dagger
+package com.task.mina.musicapp.injection
 
 import android.app.Application
 import com.task.mina.musicapp.MusicApplication
