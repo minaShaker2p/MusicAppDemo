@@ -49,8 +49,8 @@ class ArtistTopAlbumsModule {
 
 
     @Provides
-    fun provideArtistTopAlbumsViewModel(getArtistTopAlbumsUsecase: GetArtistTopAlbumsUsecase) =
-            ArtistTopAlbumsViewModel(getArtistTopAlbumsUsecase)
+    fun provideArtistTopAlbumsViewModel(getArtistTopAlbumsUsecase: GetArtistTopAlbumsUsecase, addAlbumsLocalUsecase: AddAlbumsLocalUsecase, deleteAlbumsLocalUsecase: DeleteAlbumsLocalUsecase) =
+            ArtistTopAlbumsViewModel(getArtistTopAlbumsUsecase, addAlbumsLocalUsecase, deleteAlbumsLocalUsecase)
 
     @Provides
     fun provideGridLayoutManager(context: Context) =

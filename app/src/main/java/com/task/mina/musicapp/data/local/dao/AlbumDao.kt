@@ -15,8 +15,8 @@ interface AlbumDao {
     fun getAllAlbums(): LiveData<List<ArtistAlbumEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAlbums(album: List<ArtistAlbumEntity>): Single<Boolean>
+    fun insertAlbums(album: List<ArtistAlbumEntity>)
 
     @Delete
-    fun deleteAlbums(album: List<ArtistAlbumEntity>): Single<Boolean>
+    fun deleteAlbums(album: List<ArtistAlbumEntity>)
 }

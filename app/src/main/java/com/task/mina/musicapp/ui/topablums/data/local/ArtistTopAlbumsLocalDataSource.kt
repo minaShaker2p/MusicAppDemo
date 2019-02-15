@@ -11,11 +11,15 @@ import javax.inject.Inject
 class ArtistTopAlbumsLocalDataSource @Inject constructor(private val albumDao: AlbumDao) {
 
     fun insertArtistAlbums(albums: List<ArtistAlbumEntity>): Single<Boolean> =
-            albumDao.insertAlbums(albums)
+            Single.create {
+                albumDao.insertAlbums(albums)
+            }
+
 
     fun deleteArtistAlbums(albums: List<ArtistAlbumEntity>): Single<Boolean> =
-            albumDao.deleteAlbums(albums)
-
+            Single.create {
+                albumDao.deleteAlbums(albums)
+            }
 
 
 }

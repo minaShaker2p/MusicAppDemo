@@ -106,4 +106,9 @@ dependencies {
     kapt "android.arch.persistence.room:compiler:$room_version"
     api "android.arch.persistence.room:rxjava2:$room_version"
 
+    /**
+     * stetho debugging
+     */
+    implementation "com.facebook.stetho:stetho:$stetho_version"
+
 }
