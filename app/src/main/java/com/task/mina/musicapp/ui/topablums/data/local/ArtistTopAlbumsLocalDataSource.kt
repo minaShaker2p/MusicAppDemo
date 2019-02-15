@@ -13,12 +13,14 @@ class ArtistTopAlbumsLocalDataSource @Inject constructor(private val albumDao: A
     fun insertArtistAlbums(albums: List<ArtistAlbumEntity>): Single<Boolean> =
             Single.create {
                 albumDao.insertAlbums(albums)
+                it.onSuccess(true)
             }
 
 
     fun deleteArtistAlbums(albums: List<ArtistAlbumEntity>): Single<Boolean> =
             Single.create {
                 albumDao.deleteAlbums(albums)
+                it.onSuccess(true)
             }
 
 

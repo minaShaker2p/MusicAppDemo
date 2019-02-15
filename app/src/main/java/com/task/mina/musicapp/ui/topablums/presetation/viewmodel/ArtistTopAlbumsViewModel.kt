@@ -1,9 +1,14 @@
 package com.task.mina.musicapp.ui.topablums.presetation.viewmodel
 
+import android.util.Log
 import com.task.mina.musicapp.base.domain.exception.MusicAppException
 import com.task.mina.musicapp.base.presentation.model.ObservableResource
 import com.task.mina.musicapp.base.presentation.viewmodel.BaseViewModel
+import com.task.mina.musicapp.data.local.entity.ArtistAlbumEntity
 import com.task.mina.musicapp.data.remote.network.response.Album
+import com.task.mina.musicapp.ui.topablums.data.local.map
+import com.task.mina.musicapp.ui.topablums.data.local.mapToUI
+import com.task.mina.musicapp.ui.topablums.domain.entity.AlbumUI
 import com.task.mina.musicapp.ui.topablums.domain.interactor.AddAlbumsLocalUsecase
 import com.task.mina.musicapp.ui.topablums.domain.interactor.DeleteAlbumsLocalUsecase
 import com.task.mina.musicapp.ui.topablums.domain.interactor.GetArtistTopAlbumsUsecase
@@ -18,13 +23,15 @@ class ArtistTopAlbumsViewModel @Inject constructor(private val getArtistTopAlbum
                                                    , private val addAlbumsLocalUsecase: AddAlbumsLocalUsecase
                                                    , private val deleteAlbumsLocalUsecase: DeleteAlbumsLocalUsecase
 ) : BaseViewModel() {
-    val mTopAlbumsObservable = ObservableResource<List<Album>>()
+    private val albumsList = mutableListOf<Album>()
+    val mTopAlbumsObservable = ObservableResource<List<AlbumUI>>()
 
     fun getArtistTopAlbums(artistName: String) {
         addDisposable(getArtistTopAlbumsUsecase.build(params = artistName)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe {
+
                     mTopAlbumsObservable.loading.postValue(true)
                 }
                 .doAfterTerminate {
@@ -33,7 +40,8 @@ class ArtistTopAlbumsViewModel @Inject constructor(private val getArtistTopAlbum
                 .subscribe({
                     it?.let {
                         if (it.topalbums.album.isNotEmpty()) {
-                            mTopAlbumsObservable.value = it.topalbums.album
+                            albumsList.addAll(it.topalbums.album)
+                            mTopAlbumsObservable.value = it.topalbums.album.map { it.mapToUI() }
                         } else {
 
                         }
@@ -45,5 +53,55 @@ class ArtistTopAlbumsViewModel @Inject constructor(private val getArtistTopAlbum
                     }
                 })
         )
+    }
+
+
+    fun storeAristAlbum() {
+        if (albumsList.size > 0) {
+
+            storeArtistAlbumsFromDB(albumsList.map { it.map() })
+        } else {
+            // in case of empty values
+            Log.d("Tag", "test")
+        }
+    }
+
+    fun deleteAristAlbum() {
+        if (albumsList.size > 0) {
+            deleteArtistAlbumsFromDB(albumsList.map { it.map() })
+        } else {
+            // in case of empty values
+            Log.d("Tag", "test")
+
+
+        }
+    }
+
+    private fun storeArtistAlbumsFromDB(albums: List<ArtistAlbumEntity>) {
+        addDisposable(addAlbumsLocalUsecase.build(albums)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    Log.d("Tag", "success")
+
+                }, {
+                    Log.d("Tag", "test")
+
+                }
+                ))
+    }
+
+    private fun deleteArtistAlbumsFromDB(albums: List<ArtistAlbumEntity>) {
+        addDisposable(deleteAlbumsLocalUsecase.build(albums)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    Log.d("Tag", "Success")
+
+                }, {
+                    Log.d("Tag", "test")
+
+                }
+                ))
     }
 }

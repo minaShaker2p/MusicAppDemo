@@ -1,6 +1,6 @@
 package com.task.mina.musicapp.injection
 
-import com.task.mina.musicapp.ui.mainscreen.MainActivity
+import com.task.mina.musicapp.ui.mainscreen.presenation.view.MainActivity
 import com.task.mina.musicapp.ui.mainscreen.injection.MainScreenModule
 import com.task.mina.musicapp.ui.searchscreen.injection.SearchActivityModule
 import com.task.mina.musicapp.ui.searchscreen.presentation.view.SearchArtistActivity

@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.task.mina.musicapp.ui.mainscreen.MainActivity">
+    tools:context="com.task.mina.musicapp.ui.mainscreen.presenation.view.MainActivity">
+
+
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rclAlbums"

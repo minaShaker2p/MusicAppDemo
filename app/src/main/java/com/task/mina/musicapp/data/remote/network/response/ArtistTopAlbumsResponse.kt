@@ -31,7 +31,7 @@ data class Album(
         val image: List<AlbumImage>,
         val mbid: String,
         val name: String,
-        val playcount: Int,
+        val playcount: Long,
         val url: String
 ) : Parcelable
 

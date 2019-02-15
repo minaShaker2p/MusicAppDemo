@@ -8,18 +8,19 @@ import com.task.mina.musicapp.base.presentation.view.adapter.BaseRecyclerAdapter
 import com.task.mina.musicapp.base.presentation.view.extension.getInflatedView
 import com.task.mina.musicapp.base.presentation.view.extension.loadFromUrl
 import com.task.mina.musicapp.data.remote.network.response.Album
+import com.task.mina.musicapp.ui.topablums.domain.entity.AlbumUI
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 
 import kotlinx.android.synthetic.main.item_artist_album.view.*
 
 
-class ArtistTopAlbumAdapter : BaseRecyclerAdapter<Album>() {
+class ArtistTopAlbumAdapter : BaseRecyclerAdapter<AlbumUI>() {
 
 
-    private val mViewClickSubject = PublishSubject.create<Album>()
+    private val mViewClickSubject = PublishSubject.create<AlbumUI>()
 
-    fun getViewClickedObservable(): Observable<Album> {
+    fun getViewClickedObservable(): Observable<AlbumUI> {
         return mViewClickSubject
     }
 
@@ -51,14 +52,10 @@ class ArtistTopAlbumAdapter : BaseRecyclerAdapter<Album>() {
     }
 
     private class ArtistAlbumViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(item: Album) = with(itemView) {
-            tvAlbumName.text = item.name
-            tvArtistName.text = item.artist.name
-            val image: String? = item.image.filter {
-                it.size == "large"
-            }.map {
-                it.text
-            }.first()
+        fun bind(item: AlbumUI) = with(itemView) {
+            tvAlbumName.text = item.albumName
+            tvArtistName.text = item.artistName
+            val image: String? = item.albumImage
             image?.let {
                 imageArtistAlbum.loadFromUrl(it)
             }

@@ -19,6 +19,7 @@ class ArtistTopAlbumsRepositoryImp @Inject constructor(private val remoteDataSou
     override fun deleteArtistAlbums(artistAlbums: List<ArtistAlbumEntity>): Single<Boolean> =
             localDataSource.deleteArtistAlbums(artistAlbums)
 
-    override fun getArtistTopAlbums(artistName: String): Single<ArtistTopAlbumsResponse> = remoteDataSource.getArtistTopAlbums(artistName)
+    override fun getArtistTopAlbums(artistName: String): Single<ArtistTopAlbumsResponse> =
+            remoteDataSource.getArtistTopAlbums(artistName)
 
 }

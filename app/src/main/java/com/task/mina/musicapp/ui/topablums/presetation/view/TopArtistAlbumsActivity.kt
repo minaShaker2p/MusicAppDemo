@@ -6,15 +6,18 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
+import android.view.Menu
 import com.task.mina.musicapp.R
 import com.task.mina.musicapp.base.presentation.viewmodel.ViewModelFactory
 import com.task.mina.musicapp.data.remote.network.response.Album
 import com.task.mina.musicapp.ui.albumdetails.AlbumDetailsActivity
 import com.task.mina.musicapp.ui.albumdetails.AlbumDetailsActivity.Companion.EXTRA_ALBUM_OBJECT
+import com.task.mina.musicapp.ui.topablums.data.local.mapToUI
 import com.task.mina.musicapp.ui.topablums.presetation.viewmodel.ArtistTopAlbumsViewModel
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_top_artist_albums.*
 import javax.inject.Inject
+
 
 class TopArtistAlbumsActivity : AppCompatActivity() {
     @Inject
@@ -38,6 +41,7 @@ class TopArtistAlbumsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         AndroidInjection.inject(this)
         setContentView(R.layout.activity_top_artist_albums)
+        initToolbar()
         getActivityBundle()
         initArtistAlbumsRecyclerView()
         subscribeOnArtistAlbumsObservable()
@@ -45,6 +49,18 @@ class TopArtistAlbumsActivity : AppCompatActivity() {
 
     }
 
+    private fun initToolbar() {
+        setSupportActionBar(toolbar)
+        toolbar.setOnMenuItemClickListener { item ->
+            if (item.itemId == R.id.miStore) {
+                mViewModel.storeAristAlbum()
+            } else {
+
+                mViewModel.deleteAristAlbum()
+            }
+            false
+        }
+    }
 
     /**
      * method which get all intent
@@ -55,6 +71,7 @@ class TopArtistAlbumsActivity : AppCompatActivity() {
         extras?.let {
             val artistName = it.getString(EXTRA_ARTIST_NAME)
             (artistName.isNotEmpty()).let {
+                supportActionBar?.title = artistName
                 mViewModel.getArtistTopAlbums(artistName = artistName)
             }
 
@@ -77,10 +94,7 @@ class TopArtistAlbumsActivity : AppCompatActivity() {
         mViewModel.mTopAlbumsObservable.observe(this, successObserver = Observer { albums ->
             albums?.let {
                 adapter.addMoreItemsFirst(it.toMutableList())
-
             }
-
-
         },
                 commonErrorObserver = Observer {
 
@@ -97,7 +111,7 @@ class TopArtistAlbumsActivity : AppCompatActivity() {
     private fun subscribleOnArtistAlbumItemClickEvent() {
         adapter.getViewClickedObservable().subscribe {
             it?.let {
-                navigatetoAlbumDetailsActivity(it)
+                //navigatetoAlbumDetailsActivity(it)
 
             }
         }
@@ -107,6 +121,12 @@ class TopArtistAlbumsActivity : AppCompatActivity() {
         val intent = Intent(this, AlbumDetailsActivity::class.java)
         intent.putExtra(EXTRA_ALBUM_OBJECT, artistAlbum)
         startActivity(intent)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        menuInflater.inflate(R.menu.main_menu, menu)
+        return true
     }
 
 }

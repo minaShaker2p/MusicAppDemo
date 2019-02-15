@@ -13,7 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.mainscreen.MainActivity">
+        <activity android:name=".ui.mainscreen.presenation.view.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,7 +21,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.searchscreen.presentation.view.SearchArtistActivity" />
-        <activity android:name=".ui.topablums.presetation.view.TopArtistAlbumsActivity" />
+        <activity
+            android:name=".ui.topablums.presetation.view.TopArtistAlbumsActivity"
+            android:theme="@style/AppThemeNoActionbar" />
         <activity android:name=".ui.albumdetails.AlbumDetailsActivity"></activity>
     </application>
 
