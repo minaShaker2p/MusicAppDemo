@@ -1,4 +1,4 @@
-package com.task.mina.musicapp.ui.searchscreen
+package com.task.mina.musicapp.ui.searchscreen.presentation.view
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
@@ -7,11 +7,11 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
-import android.widget.Toast
 
 import com.task.mina.musicapp.R
 import com.task.mina.musicapp.base.presentation.viewmodel.ViewModelFactory
-import com.task.mina.musicapp.ui.topablums.TopArtistAlbumsActivity
+import com.task.mina.musicapp.ui.searchscreen.presentation.viewmodel.SearchArtistViewmodel
+import com.task.mina.musicapp.ui.topablums.presetation.view.TopArtistAlbumsActivity
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_search_artist.*
 import javax.inject.Inject

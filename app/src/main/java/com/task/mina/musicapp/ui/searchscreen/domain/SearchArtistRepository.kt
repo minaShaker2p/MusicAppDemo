@@ -1,4 +1,4 @@
-package com.task.mina.musicapp.ui.searchscreen
+package com.task.mina.musicapp.ui.searchscreen.domain
 
 import com.task.mina.musicapp.data.remote.network.response.Artist
 import io.reactivex.Single

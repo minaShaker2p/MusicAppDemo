@@ -1,4 +1,4 @@
-package com.task.mina.musicapp.ui.topablums
+package com.task.mina.musicapp.ui.topablums.data.remote
 
 import com.task.mina.musicapp.BuildConfig
 import com.task.mina.musicapp.data.remote.network.response.ArtistTopAlbumsResponse

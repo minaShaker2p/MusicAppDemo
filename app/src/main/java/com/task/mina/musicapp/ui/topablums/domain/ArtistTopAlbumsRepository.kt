@@ -1,4 +1,4 @@
-package com.task.mina.musicapp.ui.topablums
+package com.task.mina.musicapp.ui.topablums.domain
 
 import com.task.mina.musicapp.data.remote.network.response.ArtistTopAlbumsResponse
 import io.reactivex.Single

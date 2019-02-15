@@ -1,10 +1,14 @@
-package com.task.mina.musicapp.ui.topablums
+package com.task.mina.musicapp.ui.topablums.di
 
 import android.content.Context
 import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.LinearLayoutManager
 import com.task.mina.musicapp.data.remote.network.retrofit.MusicServiceAPI
-import com.task.mina.musicapp.ui.searchscreen.ArtistListAdapter
+import com.task.mina.musicapp.ui.topablums.data.remote.ArtistTopAlbumsRemoteDataSource
+import com.task.mina.musicapp.ui.topablums.domain.ArtistTopAlbumsRepository
+import com.task.mina.musicapp.ui.topablums.domain.ArtistTopAlbumsRepositoryImp
+import com.task.mina.musicapp.ui.topablums.domain.GetArtistTopAlbumsUsecase
+import com.task.mina.musicapp.ui.topablums.presetation.view.ArtistTopAlbumAdapter
+import com.task.mina.musicapp.ui.topablums.presetation.viewmodel.ArtistTopAlbumsViewModel
 import dagger.Module
 import dagger.Provides
 

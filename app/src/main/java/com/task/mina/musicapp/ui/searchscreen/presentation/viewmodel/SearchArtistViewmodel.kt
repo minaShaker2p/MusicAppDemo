@@ -1,9 +1,10 @@
-package com.task.mina.musicapp.ui.searchscreen
+package com.task.mina.musicapp.ui.searchscreen.presentation.viewmodel
 
 import com.task.mina.musicapp.base.domain.exception.MusicAppException
 import com.task.mina.musicapp.base.presentation.model.ObservableResource
 import com.task.mina.musicapp.base.presentation.viewmodel.BaseViewModel
 import com.task.mina.musicapp.data.remote.network.response.Artist
+import com.task.mina.musicapp.ui.searchscreen.domain.SearchArtistUseCase
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject

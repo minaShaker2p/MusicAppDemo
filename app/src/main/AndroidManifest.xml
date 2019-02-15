@@ -20,8 +20,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.searchscreen.SearchArtistActivity" />
-        <activity android:name=".ui.topablums.TopArtistAlbumsActivity" />
+        <activity android:name=".ui.searchscreen.presentation.view.SearchArtistActivity" />
+        <activity android:name=".ui.topablums.presetation.view.TopArtistAlbumsActivity" />
         <activity android:name=".ui.albumdetails.AlbumDetailsActivity"></activity>
     </application>
 
