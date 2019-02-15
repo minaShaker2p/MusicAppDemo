@@ -14,7 +14,8 @@ import javax.inject.Singleton
 @Component(modules = [AndroidSupportInjectionModule::class,
     AppModule::class,
     ActivityBuilder::class,
-    NetworkModule::class])
+    NetworkModule::class,
+    MusicDBModule::class])
 interface AppComponent {
 
     fun inject(app: MusicApplication)

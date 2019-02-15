@@ -2,7 +2,6 @@ package com.task.mina.musicapp.ui.searchscreen.data.remote
 
 import com.task.mina.musicapp.BuildConfig
 import com.task.mina.musicapp.data.remote.network.response.ArtistSearchResponse
-import com.task.mina.musicapp.data.remote.network.response.ArtistTopAlbumsResponse
 import com.task.mina.musicapp.data.remote.network.retrofit.MusicServiceAPI
 import io.reactivex.Single
 import javax.inject.Inject

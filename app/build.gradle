@@ -99,5 +99,11 @@ dependencies {
      */
     implementation "com.github.bumptech.glide:glide:$glideVersion"
     annotationProcessor "com.github.bumptech.glide:compiler:$glideVersion"
+    /**
+     * room DB
+     */
+    api "android.arch.persistence.room:runtime:$room_version"
+    kapt "android.arch.persistence.room:compiler:$room_version"
+    api "android.arch.persistence.room:rxjava2:$room_version"
 
 }
