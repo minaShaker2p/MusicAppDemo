@@ -10,11 +10,13 @@ import android.support.v7.widget.GridLayoutManager
 import android.view.Menu
 import android.view.View
 import com.task.mina.musicapp.R
+import com.task.mina.musicapp.base.presentation.view.extension.setVisible
 import com.task.mina.musicapp.base.presentation.view.extension.showSnack
 import com.task.mina.musicapp.base.presentation.viewmodel.ViewModelFactory
 import com.task.mina.musicapp.data.remote.network.response.Album
 import com.task.mina.musicapp.ui.albumdetails.AlbumDetailsActivity
 import com.task.mina.musicapp.ui.albumdetails.AlbumDetailsActivity.Companion.EXTRA_ALBUM_OBJECT
+import com.task.mina.musicapp.ui.topablums.domain.entity.AlbumUI
 import com.task.mina.musicapp.ui.topablums.presetation.viewmodel.ArtistTopAlbumsViewModel
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_top_artist_albums.*
@@ -93,40 +95,33 @@ class TopArtistAlbumsActivity : AppCompatActivity() {
 
 
     private fun subscribeOnArtistAlbumsObservable() {
-        mViewModel.mTopAlbumsObservable.observe(this, successObserver = Observer { albums ->
-            albums?.let {
-                adapter.addMoreItemsFirst(it.toMutableList())
+        mViewModel.mTopAlbumsObservable.observe(this,
+                successObserver = Observer { albums ->
+                    albums?.let {
+                        adapter.addMoreItemsFirst(it.toMutableList())
 
-            }
-        },
-                commonErrorObserver = Observer {
-                },
-                loadingObserver = Observer {
-                    it?.let {
-                        if (it)
-                            progress.visibility = View.VISIBLE
-                        else
-                            progress.visibility = View.GONE
                     }
-                },
-                networkErrorConsumer = Observer {
-                    rootTopAlbums.showSnack(getString(R.string.no_internet_message), Snackbar.LENGTH_LONG)
-
-
-                })
+                }, commonErrorObserver = Observer {
+        }, loadingObserver = Observer {
+            it?.let {
+                progress.setVisible(it)
+            }
+        }, networkErrorConsumer = Observer {
+            rootTopAlbums.showSnack(getString(R.string.no_internet_message), Snackbar.LENGTH_LONG)
+        })
 
     }
 
     private fun subscribleOnArtistAlbumItemClickEvent() {
         adapter.getViewClickedObservable().subscribe {
             it?.let {
-                //navigatetoAlbumDetailsActivity(it)
+                navigatetoAlbumDetailsActivity(it)
 
             }
         }
     }
 
-    private fun navigatetoAlbumDetailsActivity(artistAlbum: Album) {
+    private fun navigatetoAlbumDetailsActivity(artistAlbum: AlbumUI) {
         val intent = Intent(this, AlbumDetailsActivity::class.java)
         intent.putExtra(EXTRA_ALBUM_OBJECT, artistAlbum)
         startActivity(intent)

@@ -9,9 +9,11 @@ import android.support.v7.widget.GridLayoutManager
 import android.view.View
 import com.task.mina.musicapp.R
 import com.task.mina.musicapp.base.presentation.viewmodel.ViewModelFactory
+import com.task.mina.musicapp.ui.albumdetails.AlbumDetailsActivity
 import com.task.mina.musicapp.ui.mainscreen.presenation.viewmodel.MainScreenViewModel
 import com.task.mina.musicapp.ui.searchscreen.presentation.view.SearchArtistActivity
 import com.task.mina.musicapp.ui.topablums.data.local.mapToUI
+import com.task.mina.musicapp.ui.topablums.domain.entity.AlbumUI
 import com.task.mina.musicapp.ui.topablums.presetation.view.ArtistTopAlbumAdapter
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_main.*
@@ -42,6 +44,7 @@ class MainActivity : AppCompatActivity() {
         initFabSearchIcon()
         initAlbumsRecylerView()
         ObserveStoredAlbumsChange()
+        subscribleOnArtistAlbumItemClickEvent()
     }
 
     private fun initToolbar() {
@@ -81,6 +84,21 @@ class MainActivity : AppCompatActivity() {
 
     private fun navigateToSearchScreen() {
         startActivity(Intent(this, SearchArtistActivity::class.java))
+    }
+
+    private fun subscribleOnArtistAlbumItemClickEvent() {
+        adapter.getViewClickedObservable().subscribe {
+            it?.let {
+                navigatetoAlbumDetailsActivity(it)
+
+            }
+        }
+    }
+
+    private fun navigatetoAlbumDetailsActivity(album: AlbumUI) {
+        val intent = Intent(this, AlbumDetailsActivity::class.java)
+        intent.putExtra(AlbumDetailsActivity.EXTRA_ALBUM_OBJECT, album)
+        startActivity(intent)
     }
 
 
