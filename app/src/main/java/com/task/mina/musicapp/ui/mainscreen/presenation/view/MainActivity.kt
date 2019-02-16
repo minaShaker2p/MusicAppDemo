@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
+import android.view.View
 import com.task.mina.musicapp.R
 import com.task.mina.musicapp.base.presentation.viewmodel.ViewModelFactory
 import com.task.mina.musicapp.ui.mainscreen.presenation.viewmodel.MainScreenViewModel
@@ -56,12 +57,14 @@ class MainActivity : AppCompatActivity() {
     private fun ObserveStoredAlbumsChange() {
         mViewModel.getAllStoredLocalAlbums().observe(this, Observer {
             if (it != null) {
-                if (it.isNotEmpty())
+                if (it.isNotEmpty()) {
+                    layoutNoData.visibility = View.GONE
                     adapter.addMoreItemsFirst(it.map { it.mapToUI() }.toMutableList())
-                else {
+                } else {
                     // clear items
                     adapter.getItems().clear()
                     adapter.notifyDataSetChanged()
+                    layoutNoData.visibility = View.VISIBLE
                 }
             }
 
