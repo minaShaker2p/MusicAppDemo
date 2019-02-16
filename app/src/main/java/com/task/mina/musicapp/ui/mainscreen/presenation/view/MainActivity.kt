@@ -37,9 +37,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         AndroidInjection.inject(this)
         setContentView(R.layout.activity_main)
+        initToolbar()
         initFabSearchIcon()
         initAlbumsRecylerView()
         ObserveStoredAlbumsChange()
+    }
+
+    private fun initToolbar() {
+        supportActionBar?.title = getString(R.string.toobar_main_screen)
     }
 
     private fun initAlbumsRecylerView() {

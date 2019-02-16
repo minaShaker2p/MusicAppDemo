@@ -4,12 +4,15 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.View
 
 import com.task.mina.musicapp.R
 import com.task.mina.musicapp.base.presentation.view.extension.afterTextChanged
+import com.task.mina.musicapp.base.presentation.view.extension.showSnack
 import com.task.mina.musicapp.base.presentation.viewmodel.ViewModelFactory
 import com.task.mina.musicapp.ui.searchscreen.presentation.viewmodel.SearchArtistViewmodel
 import com.task.mina.musicapp.ui.topablums.presetation.view.TopArtistAlbumsActivity
@@ -34,6 +37,7 @@ class SearchArtistActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         AndroidInjection.inject(this)
         setContentView(R.layout.activity_search_artist)
+        initToolbar()
         intiSearchButton()
         initArtistEditText()
         initSearchResultObservable()
@@ -41,13 +45,13 @@ class SearchArtistActivity : AppCompatActivity() {
         subscribleOnArtistRecylerClickEvent()
     }
 
+    private fun initToolbar() {
+        supportActionBar?.title = getString(R.string.toobar_search)
+    }
+
     private fun initArtistEditText() {
         edtArtistName.afterTextChanged {
-            if (it.isNotEmpty()) {
-                btnSearch.isEnabled = true
-            } else {
-                btnSearch.isEnabled = false
-            }
+            btnSearch.isEnabled = it.isNotEmpty()
         }
     }
 
@@ -77,8 +81,12 @@ class SearchArtistActivity : AppCompatActivity() {
                             progress.visibility = View.GONE
                     }
                 },
-                commonErrorObserver = Observer { }
-                , networkErrorConsumer = Observer { })
+                commonErrorObserver = Observer {
+
+                }
+                , networkErrorConsumer = Observer {
+            rootSearch.showSnack(getString(R.string.no_internet_message), Snackbar.LENGTH_LONG)
+        })
     }
 
     private fun intiSearchButton() {

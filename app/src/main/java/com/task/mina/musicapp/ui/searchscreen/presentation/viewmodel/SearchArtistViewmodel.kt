@@ -21,16 +21,15 @@ class SearchArtistViewmodel @Inject constructor(private val searchArtistUseCase:
                     .doOnSubscribe {
                         mSearchObservable.loading.postValue(true)
                     }
+                    .doAfterTerminate {
+                        mSearchObservable.loading.postValue(false)
+                    }
                     .observeOn(AndroidSchedulers.mainThread()).subscribe(
                             {
-                                mSearchObservable.loading.value = false
-
                                 it?.let {
-                                    mSearchObservable.postValue(it)
+                                    mSearchObservable.value = it
                                 }
-
                             }, { error ->
-                        mSearchObservable.loading.value = false
                         // as? it safe cast operator
                         (error as? MusicAppException).let {
                             mSearchObservable.error.postValue(it)

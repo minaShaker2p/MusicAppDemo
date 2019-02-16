@@ -51,9 +51,10 @@ class ArtistListAdapter : BaseRecyclerAdapter<Artist>() {
     private class ArtistViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(item: Artist) = with(itemView) {
             tvArtistName.text = item.name
+            tvArtistUrl.text = item.url
             item.image.forEach {
                 if (it.size == "large")
-                    imgArtist.loadFromUrl(it.text)
+                    imgArtist.loadFromUrl(it.text,isRounded = true)
             }
             tvListenersNumber.text = item.listeners
             itemView.setOnClickListener {
