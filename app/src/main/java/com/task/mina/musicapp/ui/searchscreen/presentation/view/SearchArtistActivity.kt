@@ -12,6 +12,7 @@ import android.view.View
 
 import com.task.mina.musicapp.R
 import com.task.mina.musicapp.base.presentation.view.extension.afterTextChanged
+import com.task.mina.musicapp.base.presentation.view.extension.setVisible
 import com.task.mina.musicapp.base.presentation.view.extension.showSnack
 import com.task.mina.musicapp.base.presentation.viewmodel.ViewModelFactory
 import com.task.mina.musicapp.ui.searchscreen.presentation.viewmodel.SearchArtistViewmodel
@@ -75,10 +76,7 @@ class SearchArtistActivity : AppCompatActivity() {
         },
                 loadingObserver = Observer {
                     it?.let {
-                        if (it)
-                            progress.visibility = View.VISIBLE
-                        else
-                            progress.visibility = View.GONE
+                        progress.setVisible(it)
                     }
                 },
                 commonErrorObserver = Observer {
