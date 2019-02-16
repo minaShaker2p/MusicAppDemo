@@ -15,5 +15,10 @@
         <item name="colorPrimaryDark">@android:color/holo_red_dark</item>
         <item name="colorAccent">@android:color/black</item>
         <item name="android:textColor">@android:color/black</item>
+        <item name="actionMenuTextColor">@android:color/white</item>
+    </style>
+
+    <style name="progressBarTheme" parent="Theme.AppCompat.Light">
+        <item name="colorAccent">@android:color/holo_red_light</item>
     </style>
 </resources>
