@@ -1,4 +1,4 @@
-package com.task.mina.musicapp.ui.searchscreen.presentation.view
+package com.task.mina.musicapp.ui.searchscreen.presentation.view.activity
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
@@ -7,16 +7,15 @@ import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
-import android.view.View
 
 import com.task.mina.musicapp.R
 import com.task.mina.musicapp.base.presentation.view.extension.afterTextChanged
 import com.task.mina.musicapp.base.presentation.view.extension.setVisible
 import com.task.mina.musicapp.base.presentation.view.extension.showSnack
 import com.task.mina.musicapp.base.presentation.viewmodel.ViewModelFactory
+import com.task.mina.musicapp.ui.searchscreen.presentation.view.adapter.ArtistListAdapter
 import com.task.mina.musicapp.ui.searchscreen.presentation.viewmodel.SearchArtistViewmodel
-import com.task.mina.musicapp.ui.topablums.presetation.view.TopArtistAlbumsActivity
+import com.task.mina.musicapp.ui.topablums.presetation.view.activity.TopArtistAlbumsActivity
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_search_artist.*
 import javax.inject.Inject
@@ -65,14 +64,16 @@ class SearchArtistActivity : AppCompatActivity() {
     }
 
     private fun initSearchResultObservable() {
-        mViewModel.mSearchObservable.observe(this, successObserver = Observer {
+        mViewModel.mArtistList.observe(this, Observer {
             it?.let {
                 // first  clear items
                 adapter.getItems().clear()
                 adapter.notifyDataSetChanged()
                 adapter.addMoreItemsFirst(it.toMutableList())
-
+                layoutNoData.setVisible(it.isEmpty())
             }
+        })
+        mViewModel.search().observe(this, successObserver = Observer {
         },
                 loadingObserver = Observer {
                     it?.let {

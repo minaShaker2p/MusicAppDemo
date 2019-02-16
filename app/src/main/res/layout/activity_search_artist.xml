@@ -5,7 +5,7 @@
     android:id="@+id/rootSearch"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.task.mina.musicapp.ui.searchscreen.presentation.view.SearchArtistActivity">
+    tools:context="com.task.mina.musicapp.ui.searchscreen.presentation.view.activity.SearchArtistActivity">
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline"
@@ -61,6 +61,10 @@
             android:textColor="@android:color/holo_red_dark"
             android:textSize="16sp"
             android:textStyle="bold" />
+        <include
+            android:id="@+id/layoutNoData"
+            layout="@layout/layout_no_data"
+            android:visibility="gone" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rclArtist"

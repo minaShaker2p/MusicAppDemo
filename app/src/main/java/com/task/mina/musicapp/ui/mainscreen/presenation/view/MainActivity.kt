@@ -11,10 +11,10 @@ import com.task.mina.musicapp.R
 import com.task.mina.musicapp.base.presentation.viewmodel.ViewModelFactory
 import com.task.mina.musicapp.ui.albumdetails.AlbumDetailsActivity
 import com.task.mina.musicapp.ui.mainscreen.presenation.viewmodel.MainScreenViewModel
-import com.task.mina.musicapp.ui.searchscreen.presentation.view.SearchArtistActivity
+import com.task.mina.musicapp.ui.searchscreen.presentation.view.activity.SearchArtistActivity
 import com.task.mina.musicapp.ui.topablums.data.local.mapToUI
 import com.task.mina.musicapp.ui.topablums.domain.entity.AlbumUI
-import com.task.mina.musicapp.ui.topablums.presetation.view.ArtistTopAlbumAdapter
+import com.task.mina.musicapp.ui.topablums.presetation.view.adapter.ArtistTopAlbumAdapter
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject

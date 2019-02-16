@@ -1,4 +1,4 @@
-package com.task.mina.musicapp.ui.searchscreen.presentation.view
+package com.task.mina.musicapp.ui.searchscreen.presentation.view.adapter
 
 import android.support.v7.widget.RecyclerView
 import android.view.View

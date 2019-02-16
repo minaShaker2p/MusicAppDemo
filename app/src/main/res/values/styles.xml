@@ -21,4 +21,7 @@
     <style name="progressBarTheme" parent="Theme.AppCompat.Light">
         <item name="colorAccent">@android:color/holo_red_light</item>
     </style>
+    <style name="FabButtonTheme" parent="Theme.AppCompat.Light">
+        <item name="colorAccent">@android:color/holo_red_light</item>
+    </style>
 </resources>

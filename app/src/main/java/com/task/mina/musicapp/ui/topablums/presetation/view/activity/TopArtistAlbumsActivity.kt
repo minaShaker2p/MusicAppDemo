@@ -1,4 +1,4 @@
-package com.task.mina.musicapp.ui.topablums.presetation.view
+package com.task.mina.musicapp.ui.topablums.presetation.view.activity
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
@@ -8,15 +8,14 @@ import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import android.view.Menu
-import android.view.View
 import com.task.mina.musicapp.R
 import com.task.mina.musicapp.base.presentation.view.extension.setVisible
 import com.task.mina.musicapp.base.presentation.view.extension.showSnack
 import com.task.mina.musicapp.base.presentation.viewmodel.ViewModelFactory
-import com.task.mina.musicapp.data.remote.network.response.Album
 import com.task.mina.musicapp.ui.albumdetails.AlbumDetailsActivity
 import com.task.mina.musicapp.ui.albumdetails.AlbumDetailsActivity.Companion.EXTRA_ALBUM_OBJECT
 import com.task.mina.musicapp.ui.topablums.domain.entity.AlbumUI
+import com.task.mina.musicapp.ui.topablums.presetation.view.adapter.ArtistTopAlbumAdapter
 import com.task.mina.musicapp.ui.topablums.presetation.viewmodel.ArtistTopAlbumsViewModel
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_top_artist_albums.*
@@ -46,7 +45,6 @@ class TopArtistAlbumsActivity : AppCompatActivity() {
         AndroidInjection.inject(this)
         setContentView(R.layout.activity_top_artist_albums)
         initToolbar()
-        getActivityBundle()
         initArtistAlbumsRecyclerView()
         subscribeOnArtistAlbumsObservable()
         subscribleOnArtistAlbumItemClickEvent()
@@ -66,6 +64,10 @@ class TopArtistAlbumsActivity : AppCompatActivity() {
         }
     }
 
+    override fun onStart() {
+        super.onStart()
+        getActivityBundle()
+    }
     /**
      * method which get all intent
      * extras from previous Activity
@@ -95,10 +97,15 @@ class TopArtistAlbumsActivity : AppCompatActivity() {
 
 
     private fun subscribeOnArtistAlbumsObservable() {
+        mViewModel.mArtistAlbums.observe(this, Observer { albums ->
+            albums?.let {
+                adapter.addMoreItemsFirst(it.toMutableList())
+            }
+        })
         mViewModel.mTopAlbumsObservable.observe(this,
-                successObserver = Observer { albums ->
-                    albums?.let {
-                        adapter.addMoreItemsFirst(it.toMutableList())
+                successObserver = Observer {
+                    it?.let {
+                        rootTopAlbums.showSnack(it)
 
                     }
                 }, commonErrorObserver = Observer {

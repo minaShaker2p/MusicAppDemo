@@ -1,5 +1,7 @@
 package com.task.mina.musicapp.ui.searchscreen.presentation.viewmodel
 
+import android.arch.lifecycle.LiveData
+import android.arch.lifecycle.MutableLiveData
 import com.task.mina.musicapp.base.domain.exception.MusicAppException
 import com.task.mina.musicapp.base.presentation.model.ObservableResource
 import com.task.mina.musicapp.base.presentation.viewmodel.BaseViewModel
@@ -13,8 +15,11 @@ import javax.inject.Inject
  * Created by Mina Alfy on 2/12/2019.
  */
 class SearchArtistViewmodel @Inject constructor(private val searchArtistUseCase: SearchArtistUseCase) : BaseViewModel() {
-    val mSearchObservable by lazy { ObservableResource<List<Artist>>() }
-    fun search(artistName: String) {
+    private val mSearchObservable by lazy { ObservableResource<List<Artist>>() }
+
+    val mArtistList = MutableLiveData<List<Artist>>()
+
+    fun search(artistName: String = ""): ObservableResource<List<Artist>> {
         if (artistName.isNotEmpty()) {
             addDisposable(searchArtistUseCase.build(params = artistName)
                     .subscribeOn(Schedulers.io())
@@ -27,7 +32,7 @@ class SearchArtistViewmodel @Inject constructor(private val searchArtistUseCase:
                     .observeOn(AndroidSchedulers.mainThread()).subscribe(
                             {
                                 it?.let {
-                                    mSearchObservable.value = it
+                                    mArtistList.value = it
                                 }
                             }, { error ->
                         // as? it safe cast operator
@@ -37,7 +42,8 @@ class SearchArtistViewmodel @Inject constructor(private val searchArtistUseCase:
                     }
                     ))
 
-        } else {
         }
+        return mSearchObservable
+
     }
 }

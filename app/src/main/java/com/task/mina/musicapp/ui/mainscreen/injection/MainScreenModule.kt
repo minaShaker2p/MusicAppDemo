@@ -8,8 +8,7 @@ import com.task.mina.musicapp.ui.mainscreen.domain.interactor.GetArtistAlbumsLoc
 import com.task.mina.musicapp.ui.mainscreen.domain.repository.MainScreenRepository
 import com.task.mina.musicapp.ui.mainscreen.domain.repository.MainScreenRepositoryImp
 import com.task.mina.musicapp.ui.mainscreen.presenation.viewmodel.MainScreenViewModel
-import com.task.mina.musicapp.ui.topablums.domain.interactor.GetArtistTopAlbumsUsecase
-import com.task.mina.musicapp.ui.topablums.presetation.view.ArtistTopAlbumAdapter
+import com.task.mina.musicapp.ui.topablums.presetation.view.adapter.ArtistTopAlbumAdapter
 import dagger.Module
 import dagger.Provides
 

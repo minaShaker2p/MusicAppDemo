@@ -1,4 +1,4 @@
-package com.task.mina.musicapp.ui.topablums.presetation.view
+package com.task.mina.musicapp.ui.topablums.presetation.view.adapter
 
 import android.support.v7.widget.RecyclerView
 import android.view.View
@@ -7,7 +7,6 @@ import com.task.mina.musicapp.R
 import com.task.mina.musicapp.base.presentation.view.adapter.BaseRecyclerAdapter
 import com.task.mina.musicapp.base.presentation.view.extension.getInflatedView
 import com.task.mina.musicapp.base.presentation.view.extension.loadFromUrl
-import com.task.mina.musicapp.data.remote.network.response.Album
 import com.task.mina.musicapp.ui.topablums.domain.entity.AlbumUI
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject

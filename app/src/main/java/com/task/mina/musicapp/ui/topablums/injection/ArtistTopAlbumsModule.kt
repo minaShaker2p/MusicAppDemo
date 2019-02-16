@@ -11,7 +11,7 @@ import com.task.mina.musicapp.ui.topablums.domain.interactor.DeleteAlbumsLocalUs
 import com.task.mina.musicapp.ui.topablums.domain.repository.ArtistTopAlbumsRepository
 import com.task.mina.musicapp.ui.topablums.domain.repository.ArtistTopAlbumsRepositoryImp
 import com.task.mina.musicapp.ui.topablums.domain.interactor.GetArtistTopAlbumsUsecase
-import com.task.mina.musicapp.ui.topablums.presetation.view.ArtistTopAlbumAdapter
+import com.task.mina.musicapp.ui.topablums.presetation.view.adapter.ArtistTopAlbumAdapter
 import com.task.mina.musicapp.ui.topablums.presetation.viewmodel.ArtistTopAlbumsViewModel
 import dagger.Module
 import dagger.Provides

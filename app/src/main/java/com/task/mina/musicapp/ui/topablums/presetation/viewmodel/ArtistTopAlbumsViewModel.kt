@@ -1,5 +1,6 @@
 package com.task.mina.musicapp.ui.topablums.presetation.viewmodel
 
+import android.arch.lifecycle.MutableLiveData
 import android.util.Log
 import com.task.mina.musicapp.base.domain.exception.MusicAppException
 import com.task.mina.musicapp.base.presentation.model.ObservableResource
@@ -24,7 +25,8 @@ class ArtistTopAlbumsViewModel @Inject constructor(private val getArtistTopAlbum
                                                    , private val deleteAlbumsLocalUsecase: DeleteAlbumsLocalUsecase
 ) : BaseViewModel() {
     private val albumsList = mutableListOf<Album>()
-    val mTopAlbumsObservable = ObservableResource<List<AlbumUI>>()
+    val mArtistAlbums = MutableLiveData<List<AlbumUI>>()
+    val mTopAlbumsObservable = ObservableResource<String>()
 
     fun getArtistTopAlbums(artistName: String) {
         addDisposable(getArtistTopAlbumsUsecase.build(params = artistName)
@@ -40,10 +42,9 @@ class ArtistTopAlbumsViewModel @Inject constructor(private val getArtistTopAlbum
                 .subscribe({
                     it?.let {
                         if (it.topalbums.album.isNotEmpty()) {
-                            albumsList.addAll(it.topalbums.album)
-                            mTopAlbumsObservable.value = it.topalbums.album.map { it.mapToUI() }
-                        } else {
-
+                            // save copy of list handle save and delete objects
+                            albumsList.addAll(it.topalbums.album.toMutableList())
+                            mArtistAlbums.value = (it.topalbums.album.map { it.mapToUI() })
                         }
                     }
 
@@ -62,7 +63,8 @@ class ArtistTopAlbumsViewModel @Inject constructor(private val getArtistTopAlbum
             storeArtistAlbumsFromDB(albumsList.map { it.map() })
         } else {
             // in case of empty values
-            Log.d("Tag", "test")
+            val message = "Sorry,No Albums"
+            mTopAlbumsObservable.value = message
         }
     }
 
@@ -71,7 +73,8 @@ class ArtistTopAlbumsViewModel @Inject constructor(private val getArtistTopAlbum
             deleteArtistAlbumsFromDB(albumsList.map { it.map() })
         } else {
             // in case of empty values
-            Log.d("Tag", "test")
+            val message = "Sorry,No Albums"
+            mTopAlbumsObservable.value = message
 
 
         }
@@ -82,10 +85,12 @@ class ArtistTopAlbumsViewModel @Inject constructor(private val getArtistTopAlbum
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    Log.d("Tag", "success")
+                    val message = "Albums saved successfully =D"
+                    mTopAlbumsObservable.value = message
 
                 }, {
-                    Log.d("Tag", "test")
+                    val message = "Unexpected Error"
+                    mTopAlbumsObservable.value = message
 
                 }
                 ))
@@ -97,10 +102,13 @@ class ArtistTopAlbumsViewModel @Inject constructor(private val getArtistTopAlbum
 
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    Log.d("Tag", "Success")
+                    val message = "Albums Deleted successfully =D"
+                    mTopAlbumsObservable.value = message
+
 
                 }, {
-                    Log.d("Tag", "test")
+                    val message = "Unexpected Error"
+                    mTopAlbumsObservable.value = message
 
                 }
                 ))

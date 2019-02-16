@@ -8,7 +8,7 @@ import com.task.mina.musicapp.ui.searchscreen.domain.SearchArtistRepository
 import com.task.mina.musicapp.ui.searchscreen.domain.SearchArtistRepositoryImp
 import com.task.mina.musicapp.ui.searchscreen.domain.SearchArtistUseCase
 import com.task.mina.musicapp.ui.searchscreen.presentation.viewmodel.SearchArtistViewmodel
-import com.task.mina.musicapp.ui.searchscreen.presentation.view.ArtistListAdapter
+import com.task.mina.musicapp.ui.searchscreen.presentation.view.adapter.ArtistListAdapter
 import dagger.Module
 import dagger.Provides
 
