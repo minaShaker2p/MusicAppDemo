@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import android.view.Menu
+import android.view.View
 import com.task.mina.musicapp.R
 import com.task.mina.musicapp.base.presentation.viewmodel.ViewModelFactory
 import com.task.mina.musicapp.data.remote.network.response.Album
@@ -94,12 +95,19 @@ class TopArtistAlbumsActivity : AppCompatActivity() {
         mViewModel.mTopAlbumsObservable.observe(this, successObserver = Observer { albums ->
             albums?.let {
                 adapter.addMoreItemsFirst(it.toMutableList())
+
             }
         },
                 commonErrorObserver = Observer {
-
                 },
                 loadingObserver = Observer {
+                    it?.let {
+                        if (it)
+                            progress.visibility = View.VISIBLE
+                        else
+                            progress.visibility = View.GONE
+                    }
+
 
                 },
                 networkErrorConsumer = Observer {

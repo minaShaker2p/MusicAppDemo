@@ -94,6 +94,7 @@ class ArtistTopAlbumsViewModel @Inject constructor(private val getArtistTopAlbum
     private fun deleteArtistAlbumsFromDB(albums: List<ArtistAlbumEntity>) {
         addDisposable(deleteAlbumsLocalUsecase.build(albums)
                 .subscribeOn(Schedulers.io())
+
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     Log.d("Tag", "Success")

@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 
 import com.task.mina.musicapp.R
+import com.task.mina.musicapp.base.presentation.view.extension.afterTextChanged
 import com.task.mina.musicapp.base.presentation.viewmodel.ViewModelFactory
 import com.task.mina.musicapp.ui.searchscreen.presentation.viewmodel.SearchArtistViewmodel
 import com.task.mina.musicapp.ui.topablums.presetation.view.TopArtistAlbumsActivity
@@ -34,9 +35,20 @@ class SearchArtistActivity : AppCompatActivity() {
         AndroidInjection.inject(this)
         setContentView(R.layout.activity_search_artist)
         intiSearchButton()
+        initArtistEditText()
         initSearchResultObservable()
         initArtistRecylerView()
         subscribleOnArtistRecylerClickEvent()
+    }
+
+    private fun initArtistEditText() {
+        edtArtistName.afterTextChanged {
+            if (it.isNotEmpty()) {
+                btnSearch.isEnabled = true
+            } else {
+                btnSearch.isEnabled = false
+            }
+        }
     }
 
 
@@ -50,6 +62,9 @@ class SearchArtistActivity : AppCompatActivity() {
     private fun initSearchResultObservable() {
         mViewModel.mSearchObservable.observe(this, successObserver = Observer {
             it?.let {
+                // first  clear items
+                adapter.getItems().clear()
+                adapter.notifyDataSetChanged()
                 adapter.addMoreItemsFirst(it.toMutableList())
 
             }
@@ -67,6 +82,7 @@ class SearchArtistActivity : AppCompatActivity() {
     }
 
     private fun intiSearchButton() {
+        btnSearch.isEnabled = false
         btnSearch.setOnClickListener {
             mViewModel.search(artistName = edtArtistName.text.toString())
         }

@@ -51,7 +51,13 @@ class MainActivity : AppCompatActivity() {
     private fun ObserveStoredAlbumsChange() {
         mViewModel.getAllStoredLocalAlbums().observe(this, Observer {
             if (it != null) {
-                adapter.addMoreItemsFirst(it.map { it.mapToUI() }.toMutableList())
+                if (it.isNotEmpty())
+                    adapter.addMoreItemsFirst(it.map { it.mapToUI() }.toMutableList())
+                else {
+                    // clear items
+                    adapter.getItems().clear()
+                    adapter.notifyDataSetChanged()
+                }
             }
 
         })
