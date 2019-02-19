@@ -10,21 +10,21 @@ class ObservableResource<T> : SingleLiveEvent<T>() {
     val loading: SingleLiveEvent<Boolean> = SingleLiveEvent()
 
     fun observe(
-        owner: LifecycleOwner, successObserver: Observer<T>,
-        loadingObserver: Observer<Boolean>? = null,
-        commonErrorObserver: Observer<MusicAppException>,
-        httpErrorConsumer: Observer<MusicAppException>? = null,
-        networkErrorConsumer: Observer<MusicAppException>? = null,
-        unExpectedErrorConsumer: Observer<MusicAppException>? = null,
-        serverDownErrorConsumer: Observer<MusicAppException>? = null,
-        timeOutErrorConsumer: Observer<MusicAppException>? = null,
-        unAuthorizedErrorConsumer: Observer<MusicAppException>? = null
+            owner: LifecycleOwner, successObserver: Observer<T>,
+            loadingObserver: Observer<Boolean>? = null,
+            commonErrorObserver: Observer<MusicAppException>,
+            httpErrorConsumer: Observer<MusicAppException>? = null,
+            networkErrorConsumer: Observer<MusicAppException>? = null,
+            unExpectedErrorConsumer: Observer<MusicAppException>? = null,
+            serverDownErrorConsumer: Observer<MusicAppException>? = null,
+            timeOutErrorConsumer: Observer<MusicAppException>? = null,
+            unAuthorizedErrorConsumer: Observer<MusicAppException>? = null
     ) {
         super.observe(owner, successObserver)
         loadingObserver?.let { loading.observe(owner, it) }
         (error as ErrorLiveData).observe(
-            owner, commonErrorObserver, httpErrorConsumer, networkErrorConsumer, unExpectedErrorConsumer,
-            serverDownErrorConsumer, timeOutErrorConsumer, unAuthorizedErrorConsumer
+                owner, commonErrorObserver, httpErrorConsumer, networkErrorConsumer, unExpectedErrorConsumer,
+                serverDownErrorConsumer, timeOutErrorConsumer, unAuthorizedErrorConsumer
         )
     }
 
@@ -40,11 +40,11 @@ class ObservableResource<T> : SingleLiveEvent<T>() {
         private var timeOutErrorConsumer: Observer<MusicAppException>? = null
         private var unAuthorizedErrorConsumer: Observer<MusicAppException>? = null
 
-        override fun setValue(value: MusicAppException?) {
+        override fun setValue(t: MusicAppException?) {
             ownerRef?.also {
                 removeObservers(it)
-                value?.let { vale -> addProperObserver(vale) }
-                super.setValue(value)
+                t?.let { vale -> addProperObserver(vale) }
+                super.setValue(t)
             }
 
         }
@@ -61,20 +61,20 @@ class ObservableResource<T> : SingleLiveEvent<T>() {
         private fun addProperObserver(value: MusicAppException) {
             when (value.kind) {
                 MusicAppException.Kind.NETWORK -> networkErrorConsumer?.let { observe(ownerRef!!, it) }
-                    ?: observe(ownerRef!!, commonErrorConsumer!!)
+                        ?: observe(ownerRef!!, commonErrorConsumer!!)
                 MusicAppException.Kind.HTTP -> httpErrorConsumer?.let { observe(ownerRef!!, it) }
-                    ?: observe(ownerRef!!, commonErrorConsumer!!)
+                        ?: observe(ownerRef!!, commonErrorConsumer!!)
                 MusicAppException.Kind.UNEXPECTED -> unExpectedErrorConsumer?.let { observe(ownerRef!!, it) }
-                    ?: observe(ownerRef!!, commonErrorConsumer!!)
+                        ?: observe(ownerRef!!, commonErrorConsumer!!)
 
                 MusicAppException.Kind.SERVER_DOWN -> serverDownErrorConsumer?.let { observe(ownerRef!!, it) }
-                    ?: observe(ownerRef!!, commonErrorConsumer!!)
+                        ?: observe(ownerRef!!, commonErrorConsumer!!)
 
                 MusicAppException.Kind.TIME_OUT -> timeOutErrorConsumer?.let { observe(ownerRef!!, it) }
-                    ?: observe(ownerRef!!, commonErrorConsumer!!)
+                        ?: observe(ownerRef!!, commonErrorConsumer!!)
 
                 MusicAppException.Kind.UNAUTHORIZED -> unAuthorizedErrorConsumer?.let { observe(ownerRef!!, it) }
-                    ?: observe(ownerRef!!, commonErrorConsumer!!)
+                        ?: observe(ownerRef!!, commonErrorConsumer!!)
 
                 else -> {
                 }
@@ -83,14 +83,14 @@ class ObservableResource<T> : SingleLiveEvent<T>() {
 
 
         fun observe(
-            owner: LifecycleOwner, commonErrorConsumer: Observer<MusicAppException>,
-            httpErrorConsumer: Observer<MusicAppException>? = null,
-            networkErrorConsumer: Observer<MusicAppException>? = null,
-            unExpectedErrorConsumer: Observer<MusicAppException>? = null,
+                owner: LifecycleOwner, commonErrorConsumer: Observer<MusicAppException>,
+                httpErrorConsumer: Observer<MusicAppException>? = null,
+                networkErrorConsumer: Observer<MusicAppException>? = null,
+                unExpectedErrorConsumer: Observer<MusicAppException>? = null,
 
-            serverDownErrorConsumer: Observer<MusicAppException>? = null,
-            timeOutErrorConsumer: Observer<MusicAppException>? = null,
-            unAuthorizedErrorConsumer: Observer<MusicAppException>? = null
+                serverDownErrorConsumer: Observer<MusicAppException>? = null,
+                timeOutErrorConsumer: Observer<MusicAppException>? = null,
+                unAuthorizedErrorConsumer: Observer<MusicAppException>? = null
         ) {
             super.observe(owner, commonErrorConsumer)
             this.ownerRef = owner

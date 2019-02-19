@@ -1,4 +1,11 @@
 <resources>
     <string name="app_name">MusicApp</string>
     <string name="artist_name">Artist Name</string>
+    <string name="menu_store">Store</string>
+    <string name="menu_delete">Delete</string>
+    <string name="search_results">Search Results</string>
+    <string name="toobar_search">Search</string>
+    <string name="toobar_main_screen">Top Albums</string>
+    <string name="no_internet_message">No Internet Connection !!</string>
+    <string name="no_data">Unfortuntly,No Data</string>
 </resources>

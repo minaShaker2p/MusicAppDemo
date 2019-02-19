@@ -2,9 +2,10 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootSearch"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.task.mina.musicapp.ui.searchscreen.SearchArtistActivity">
+    tools:context="com.task.mina.musicapp.ui.searchscreen.presentation.view.activity.SearchArtistActivity">
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline"
@@ -35,22 +36,53 @@
         android:layout_width="0dp"
         android:layout_height="42dp"
         android:layout_margin="12dp"
-        android:clickable="true"
-        android:background="@color/colorPrimary"
+        android:background="@drawable/bg_button_search"
         android:src="@drawable/ic_search"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/guideline"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rclArtist"
+    <LinearLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_margin="12dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/colorSearchResults"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/layoutSearch" />
+        app:layout_constraintTop_toBottomOf="@id/layoutSearch">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="@string/search_results"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+        <include
+            android:id="@+id/layoutNoData"
+            layout="@layout/layout_no_data"
+            android:visibility="gone" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rclArtist"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="12dp" />
+
+    </LinearLayout>
 
 
+    <ProgressBar
+        android:id="@+id/progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:theme="@style/progressBarTheme"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>
