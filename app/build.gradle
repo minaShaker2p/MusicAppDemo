@@ -7,11 +7,14 @@ apply plugin: 'kotlin-kapt'
 
 
 android {
-    compileSdkVersion 28
+    configurations.all {
+
+    }
+    compileSdkVersion Versions.compileSDK
     defaultConfig {
         applicationId "com.task.mina.musicapp"
-        minSdkVersion 21
-        targetSdkVersion 28
+        minSdkVersion Versions.minSDK
+        targetSdkVersion Versions.targetSDK
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -19,6 +22,8 @@ android {
     androidExtensions {
         experimental = true
     }
+
+
     buildTypes {
         debug {
             buildConfigField("String", "BASE_URL", BASE_URL)
@@ -42,8 +47,8 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "com.android.support:appcompat-v7:$supportLibraryVersion"
-    api "com.android.support:design:$supportLibraryVersion"
+    implementation Deps.appCompat
+    api Deps.supportdesign
 
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     testImplementation 'junit:junit:4.12'
@@ -52,7 +57,7 @@ dependencies {
     /**
      * Koltin
      */
-    api "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    api Deps.kotlinStdLib
 
     /**
      * recylerview and cardview

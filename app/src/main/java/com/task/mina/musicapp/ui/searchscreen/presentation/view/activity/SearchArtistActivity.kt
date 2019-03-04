@@ -18,6 +18,7 @@ import com.task.mina.musicapp.ui.searchscreen.presentation.viewmodel.SearchArtis
 import com.task.mina.musicapp.ui.topablums.presetation.view.activity.TopArtistAlbumsActivity
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_search_artist.*
+import kotlinx.android.synthetic.main.view_search.*
 import javax.inject.Inject
 
 class SearchArtistActivity : AppCompatActivity() {
@@ -37,7 +38,6 @@ class SearchArtistActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         AndroidInjection.inject(this)
         setContentView(R.layout.activity_search_artist)
-        initToolbar()
         intiSearchButton()
         initArtistEditText()
         initSearchResultObservable()
@@ -45,13 +45,11 @@ class SearchArtistActivity : AppCompatActivity() {
         subscribleOnArtistRecylerClickEvent()
     }
 
-    private fun initToolbar() {
-        supportActionBar?.title = getString(R.string.toobar_search)
-    }
+
 
     private fun initArtistEditText() {
-        edtArtistName.afterTextChanged {
-            btnSearch.isEnabled = it.isNotEmpty()
+        search_input_text.afterTextChanged {
+            execute_search_button.isEnabled = it.isNotEmpty()
         }
     }
 
@@ -89,9 +87,9 @@ class SearchArtistActivity : AppCompatActivity() {
     }
 
     private fun intiSearchButton() {
-        btnSearch.isEnabled = false
-        btnSearch.setOnClickListener {
-            mViewModel.search(artistName = edtArtistName.text.toString())
+        execute_search_button.isEnabled = false
+        execute_search_button.setOnClickListener {
+            mViewModel.search(artistName = search_input_text.text.toString())
         }
     }
 
