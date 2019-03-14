@@ -7,8 +7,10 @@ import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.widget.Toast
 
 import com.task.mina.musicapp.R
+import com.task.mina.musicapp.base.presentation.view.adapter.BaseRecyclerAdapter
 import com.task.mina.musicapp.base.presentation.view.extension.afterTextChanged
 import com.task.mina.musicapp.base.presentation.view.extension.setVisible
 import com.task.mina.musicapp.base.presentation.view.extension.showSnack
@@ -21,7 +23,8 @@ import kotlinx.android.synthetic.main.activity_search_artist.*
 import kotlinx.android.synthetic.main.view_search.*
 import javax.inject.Inject
 
-class SearchArtistActivity : AppCompatActivity() {
+class SearchArtistActivity : AppCompatActivity(), BaseRecyclerAdapter.OnLoadMoreListener {
+
     @Inject
     lateinit var viewModelFactory: ViewModelFactory<SearchArtistViewmodel>
 
@@ -41,10 +44,9 @@ class SearchArtistActivity : AppCompatActivity() {
         intiSearchButton()
         initArtistEditText()
         initSearchResultObservable()
-        initArtistRecylerView()
+        configArtistRecylerView()
         subscribleOnArtistRecylerClickEvent()
     }
-
 
 
     private fun initArtistEditText() {
@@ -54,8 +56,9 @@ class SearchArtistActivity : AppCompatActivity() {
     }
 
 
-    private fun initArtistRecylerView() {
+    private fun configArtistRecylerView() {
         manager.orientation = LinearLayoutManager.VERTICAL
+        adapter.addOnLoadMoreListener(this, rclArtist, manager)
         rclArtist.layoutManager = manager
         rclArtist.adapter = adapter
 
@@ -104,5 +107,10 @@ class SearchArtistActivity : AppCompatActivity() {
         intent.putExtra(TopArtistAlbumsActivity.EXTRA_ARTIST_NAME, artistName)
         startActivity(intent)
     }
+
+    override fun onLoadMore() {
+        Toast.makeText(this, "LoafMore", Toast.LENGTH_SHORT).show()
+    }
+
 
 }

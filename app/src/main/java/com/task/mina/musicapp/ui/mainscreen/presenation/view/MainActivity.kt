@@ -45,7 +45,10 @@ class MainActivity : AppCompatActivity() {
         initAlbumsRecylerView()
         ObserveStoredAlbumsChange()
         subscribleOnArtistAlbumItemClickEvent()
+
     }
+
+
 
     private fun initToolbar() {
         supportActionBar?.title = getString(R.string.toobar_main_screen)
