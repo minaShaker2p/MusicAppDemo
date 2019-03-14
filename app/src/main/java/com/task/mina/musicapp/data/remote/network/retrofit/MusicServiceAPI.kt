@@ -12,7 +12,7 @@ import retrofit2.http.Query
  */
 interface MusicServiceAPI {
     @GET("2.0/?method=artist.search&format=json")
-    fun search(@Query("artist") artist: String, @Query("api_key") apiKey: String): Single<ArtistSearchResponse>
+    fun search(@Query("artist") artist: String,@Query("page") page: Int,@Query("limit") limit: Int, @Query("api_key") apiKey: String): Single<ArtistSearchResponse>
 //--------------------------------------------------------------------------------------------------------------------------------
 
     @GET("2.0/?method=artist.gettopalbums&format=json")

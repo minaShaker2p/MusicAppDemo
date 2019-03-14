@@ -11,6 +11,6 @@ import javax.inject.Inject
  */
 class ArtistSearchRemoteDataSource @Inject constructor(private val musicServiceAPI: MusicServiceAPI) {
 
-    fun search(artistName: String): Single<ArtistSearchResponse> =
-            musicServiceAPI.search(artist = artistName, apiKey = BuildConfig.API_KEY)
+    fun search(artistName: String, page: Int, limit: Int): Single<ArtistSearchResponse> =
+            musicServiceAPI.search(artist = artistName, apiKey = BuildConfig.API_KEY, page = page, limit = limit)
 }

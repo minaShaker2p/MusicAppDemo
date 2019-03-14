@@ -6,6 +6,7 @@ import com.task.mina.musicapp.base.domain.exception.MusicAppException
 import com.task.mina.musicapp.base.presentation.model.ObservableResource
 import com.task.mina.musicapp.base.presentation.viewmodel.BaseViewModel
 import com.task.mina.musicapp.data.remote.network.response.Artist
+import com.task.mina.musicapp.ui.searchscreen.data.remote.apibody.SearchAPIBody
 import com.task.mina.musicapp.ui.searchscreen.domain.SearchArtistUseCase
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -19,9 +20,10 @@ class SearchArtistViewmodel @Inject constructor(private val searchArtistUseCase:
 
     val mArtistList = MutableLiveData<List<Artist>>()
 
+
     fun search(artistName: String = ""): ObservableResource<List<Artist>> {
         if (artistName.isNotEmpty()) {
-            addDisposable(searchArtistUseCase.build(params = artistName)
+            addDisposable(searchArtistUseCase.build(params = SearchAPIBody(artistName=artistName))
                     .subscribeOn(Schedulers.io())
                     .doOnSubscribe {
                         mSearchObservable.loading.postValue(true)
