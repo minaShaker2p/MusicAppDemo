@@ -54,7 +54,7 @@ class ArtistListAdapter : BaseRecyclerAdapter<Artist>() {
             tvArtistUrl.text = item.url
             item.image.forEach {
                 if (it.size == "large")
-                    imgArtist.loadFromUrl(it.text,isRounded = true)
+                    imgArtist.loadFromUrl(it.text,isRounded = true,placeholder = R.drawable.artist_placeholder)
             }
             tvListenersNumber.text = item.listeners
             itemView.setOnClickListener {
